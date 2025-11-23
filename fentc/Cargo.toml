@@ -1,0 +1,27 @@
+[package]
+name = "fentc"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+lazy_static = { workspace = true }
+rayon = { workspace = true }
+serde = { workspace = true }
+thiserror = { workspace = true }
+eyre = { workspace = true }
+tokio = { version = "1.42.0", features = ["full"] }
+logos = "0.14.4"
+ariadne = "0.5.0"
+uuid = "1.11.0"
+color-eyre = "0.6.3"
+indoc = "2.0.5"
+dashmap = "6.1.0"
+internment = { version = "0.8.6", features = ["serde"] }
+displaydoc = { workspace = true }
+either = "1.15.0"
+chumsky = { version = "0.11.2", features = [
+	"memoization",
+	"serde",
+	"stacker",
+	"bytes",
+] }

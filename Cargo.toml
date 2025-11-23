@@ -1,0 +1,15 @@
+[workspace]
+resolver = "1"
+members = [
+	"fentc",
+	"fentc-cli",
+	"fentc-lsp"
+]
+
+[workspace.dependencies]
+eyre = { version = "0.6.12" }
+lazy_static = "1.5.0"
+rayon = "1.10.0"
+serde = "1.0.216"
+thiserror = "2.0.6"
+displaydoc = { version = "0.2" }

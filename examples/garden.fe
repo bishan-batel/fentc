@@ -1,0 +1,45 @@
+import 10
+
+type A = 10
+
+public struct Point2D {
+	public x: f32
+	public y: f32
+}
+
+implement for Point2D {
+
+	public fn length2(self) -> f32 {
+		math.sqrt(self.length2())
+	}
+	
+	public fn length2(self) -> f32 {
+		self.x * self.x + self.y * self.y
+	}
+
+}
+
+public fn print(fmt: str) {
+	unit
+}
+
+public fn pow(x: f32, m: u32) -> f32 = {
+	var output = x
+	var i = m
+
+	until m == 0 {
+		output *= x
+		m -= 1
+	}
+
+	output
+}
+
+public consteval fn type_identity(T: type) {
+	return fn(x: T) -> T { x }
+}
+
+public fn type_identity<T>(T: type) {
+}
+
+type_identity<float>(10)
