@@ -9,23 +9,53 @@ use crate::parser::operator::Operator;
 #[logos(skip r"([ \t\n\f]+)|(\/\/.*\n)|(\/\*.*\*\/)")]
 pub enum Token<'a> {
     /// A single operator
-    #[token("+", |_| Operator::Add)]
-    #[token("-", |_| Operator::Sub)]
-    #[token("*", |_| Operator::Mul)]
-    #[token("/", |_| Operator::Div)]
-    #[token("mod", |_| Operator::Mod)]
-    #[token("and", |_| Operator::And)]
-    #[token("not", |_| Operator::Not)]
-    #[token("or", |_| Operator::Or)]
-    #[token("nor", |_| Operator::Nor)]
-    #[token("<", |_| Operator::Less)]
-    #[token("<=", |_| Operator::LessOrEqual)]
-    #[token(">", |_| Operator::Greater)]
-    #[token(">=", |_| Operator::GreaterOrEqual)]
-    #[token("==", |_| Operator::Equals)]
-    #[token("!=", |_| Operator::NotEquals)]
-    #[token("=", |_| Operator::Assign)]
-    Operator(Operator),
+    #[token("+")]
+    Add,
+
+    #[token("-")]
+    Sub,
+
+    #[token("*")]
+    Mul,
+
+    #[token("/")]
+    Div,
+
+    #[token("mod")]
+    Mod,
+
+    #[token("and")]
+    And,
+
+    #[token("not")]
+    Not,
+
+    #[token("or")]
+    Or,
+
+    #[token("nor")]
+    Nor,
+
+    #[token("<")]
+    Less,
+
+    #[token("<=")]
+    LessOrEqual,
+
+    #[token(">")]
+    Greater,
+
+    #[token(">=")]
+    GreaterOrEqual,
+
+    #[token("==")]
+    Equals,
+
+    #[token("!=")]
+    NotEquals,
+
+    #[token("=")]
+    Assign,
 
     #[token("{")]
     CurlyBraceOpen,
@@ -231,12 +261,12 @@ mod tests {
                 Token::Bool(true),
                 Token::CurlyBraceOpen,
                 Token::Identifier("a"),
-                Token::Operator(Operator::Assign),
+                Token::Assign,
                 Token::ParenOpen,
                 Token::Identifier("a"),
-                Token::Operator(Operator::Add),
+                Token::Add,
                 Token::Integer(1),
-                Token::Operator(Operator::Add),
+                Token::Add,
                 Token::Float(0.5),
                 Token::ParenClosed,
                 Token::CurlyBraceClose,
@@ -245,7 +275,7 @@ mod tests {
                 Token::Identifier("b"),
                 Token::Dot,
                 Token::Identifier("what"),
-                Token::Operator(Operator::Assign),
+                Token::Assign,
                 Token::String("huh"),
                 Token::CurlyBraceClose,
             ]
