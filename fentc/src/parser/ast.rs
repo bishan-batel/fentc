@@ -1,29 +1,25 @@
-use std::error::Error;
-
 use crate::parser::{identifier::Identifier, span::Spanned, token::Token};
 
-pub struct Program {
-    functions: Vec<(Identifier, Function)>,
+#[derive(Debug, Clone, PartialEq)]
+pub struct Module {
+    pub functions: Vec<Spanned<Function>>,
 }
 
-impl Program {
-    pub fn new(functions: Vec<(Identifier, Function)>) -> Self {
-        Self { functions }
-    }
-
-    pub fn functions(&self) -> &[(Identifier, Function)] {
-        &self.functions
-    }
-}
+impl Module {}
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Type {
-    Named(Identifier),
+    F32,
+    Unit,
 }
+
+pub type ArgumentList = Vec<(Spanned<Identifier>, Spanned<Type>)>;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Function {
-    parameters: Identifier,
+    pub parameters: ArgumentList,
+    pub returns: Spanned<Type>,
+    pub body: Vec<Spanned<Statement>>,
 }
 
 #[derive(displaydoc::Display, Debug, Copy, Clone, PartialEq, Eq)]
@@ -39,11 +35,11 @@ pub enum Mutability {
 pub enum Statement {
     Expression(Expression),
     Assignment {
-        lhs: Identifier,
+        lhs: Spanned<Identifier>,
         rhs: Spanned<Expression>,
     },
     Let {
-        identifier: Identifier,
+        identifier: Spanned<Identifier>,
         mutability: Mutability,
         initializer: Spanned<Expression>,
     },
@@ -67,7 +63,9 @@ pub enum Expression {
     Bool(bool),
 
     /// Number Literal
-    Number(f64),
+    F32(f32),
+
+    I32(i32),
 
     If {
         condition: Box<Spanned<Self>>,
@@ -87,7 +85,7 @@ pub enum Expression {
 
     Binary {
         lhs: Box<Spanned<Self>>,
-        op: Operator,
+        op: BinaryOperator,
         rhs: Box<Spanned<Self>>,
     },
 }

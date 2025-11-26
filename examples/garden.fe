@@ -9,6 +9,10 @@ public struct Point2D {
 
 implement for Point2D {
 
+	pub fn new(x: f32, y: f32) -> Point2D {
+		return Point2D { x: x, y: y };
+	}
+
 	public fn length2(self) -> f32 {
 		math.sqrt(self.length2())
 	}
@@ -17,10 +21,6 @@ implement for Point2D {
 		self.x * self.x + self.y * self.y
 	}
 
-}
-
-public fn print(fmt: str) {
-	unit
 }
 
 public fn pow(x: f32, m: u32) -> f32 = {
@@ -35,11 +35,5 @@ public fn pow(x: f32, m: u32) -> f32 = {
 	output
 }
 
-public consteval fn type_identity(T: type) {
-	return fn(x: T) -> T { x }
+fn main() {
 }
-
-public fn type_identity<T>(T: type) {
-}
-
-type_identity<float>(10)

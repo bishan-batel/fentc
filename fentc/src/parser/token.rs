@@ -3,8 +3,6 @@ use std::str::FromStr;
 
 use logos::Logos;
 
-use crate::parser::operator::Operator;
-
 #[derive(Logos, Debug, PartialEq, Clone)]
 #[logos(skip r"([ \t\n\f]+)|(\/\/.*\n)|(\/\*.*\*\/)")]
 pub enum Token<'a> {
@@ -161,37 +159,52 @@ pub enum Token<'a> {
 impl<'a> Display for Token<'a> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Token::Operator(op) => op.fmt(f),
-            Token::CurlyBraceOpen => f.write_str("{"),
-            Token::CurlyBraceClose => f.write_str("}"),
-            Token::BracketOpen => f.write_str("["),
-            Token::BracketClose => f.write_str("]"),
-            Token::ParenOpen => f.write_str("("),
-            Token::ParenClosed => f.write_str(")"),
-            Token::Colon => f.write_str(":"),
-            Token::Comma => f.write_str(","),
-            Token::Dot => f.write_str("."),
-            Token::Semicolon => f.write_str(";"),
-            Token::FatArrow => f.write_str("=>"),
-            Token::Bool(b) => b.fmt(f),
-            Token::Float(x) => x.fmt(f),
-            Token::Integer(n) => n.fmt(f),
-            Token::String(s) => f.write_fmt(format_args!("\"{s}\"")),
-            Token::Identifier(iden) => iden.fmt(f),
-            Token::Fn => f.write_str("fn"),
-            Token::Nil => f.write_str("nil"),
-            Token::Return => f.write_str("return"),
-            Token::If => f.write_str("if"),
-            Token::Unless => f.write_str("unless"),
-            Token::Else => f.write_str("else"),
-            Token::While => f.write_str("while"),
-            Token::Until => f.write_str("until"),
-            Token::For => f.write_str("for"),
-            Token::In => f.write_str("in"),
-            Token::Do => f.write_str("do"),
-            Token::Let => f.write_str("let"),
-            Token::Var => f.write_str("var"),
-            Token::Error => f.write_str("[Error]"),
+            Self::CurlyBraceOpen => f.write_str("{"),
+            Self::CurlyBraceClose => f.write_str("}"),
+            Self::BracketOpen => f.write_str("["),
+            Self::BracketClose => f.write_str("]"),
+            Self::ParenOpen => f.write_str("("),
+            Self::ParenClosed => f.write_str(")"),
+            Self::Colon => f.write_str(":"),
+            Self::Comma => f.write_str(","),
+            Self::Dot => f.write_str("."),
+            Self::Semicolon => f.write_str(";"),
+            Self::FatArrow => f.write_str("=>"),
+            Self::Bool(b) => b.fmt(f),
+            Self::Float(x) => x.fmt(f),
+            Self::Integer(n) => n.fmt(f),
+            Self::String(s) => f.write_fmt(format_args!("\"{s}\"")),
+            Self::Identifier(iden) => iden.fmt(f),
+            Self::Fn => f.write_str("fn"),
+            Self::Nil => f.write_str("nil"),
+            Self::Return => f.write_str("return"),
+            Self::If => f.write_str("if"),
+            Self::Unless => f.write_str("unless"),
+            Self::Else => f.write_str("else"),
+            Self::While => f.write_str("while"),
+            Self::Until => f.write_str("until"),
+            Self::For => f.write_str("for"),
+            Self::In => f.write_str("in"),
+            Self::Do => f.write_str("do"),
+            Self::Let => f.write_str("let"),
+            Self::Var => f.write_str("var"),
+            Self::Error => f.write_str("[Error]"),
+            Self::Add => f.write_str("+"),
+            Self::Sub => f.write_str("-"),
+            Self::Mul => f.write_str("*"),
+            Self::Div => f.write_str("/"),
+            Self::Mod => f.write_str("mod"),
+            Self::And => f.write_str("and"),
+            Self::Not => f.write_str("not"),
+            Self::Or => f.write_str(""),
+            Self::Nor => f.write_str("nor"),
+            Self::Less => f.write_str("<"),
+            Self::LessOrEqual => f.write_str("<="),
+            Self::Greater => f.write_str(">"),
+            Self::GreaterOrEqual => f.write_str(">="),
+            Self::Equals => f.write_str("=="),
+            Self::NotEquals => f.write_str("!="),
+            Self::Assign => f.write_str("="),
         }
     }
 }
@@ -199,8 +212,6 @@ impl<'a> Display for Token<'a> {
 #[cfg(test)]
 mod tests {
     use logos::Logos;
-
-    use crate::parser::operator::Operator;
 
     use super::Token;
 
